@@ -24,5 +24,6 @@
   "homepage": "https://github.com/Mango3313/express-workshop-2020-1#readme",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {}
 }
