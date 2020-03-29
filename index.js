@@ -26,9 +26,27 @@ app.get('/pokemon',(req,res,next)=>{
      */
     res.send("Bienvenido a la pokedex");
 });
-app.get('/pokemon/:id',(req,res,next)=>{
-    var idpoke = req.params.id;
-    res.status(200).send(pokemon[idpoke - 1]);
+app.get('/pokemon/:id([0-9]{1,3})',(req,res,next)=>{
+    var idpoke = req.params.id - 1;
+    if (idpoke > 0 && idpoke < 150){
+        res.status(200).send(pokemon[idpoke]);
+    }else{
+        res.status(404).send("Pokemon no existe");
+    }
+});
+app.get('/pokemon/:name',(req,res,next)=>{
+    var pokename = req.params.name;
+    var encontrado = false;
+   for(let element of pokemon ){
+        if (element.name == pokename){
+            encontrado = true;
+            res.status(200).send(element);
+            break;
+        }
+    }
+    if(!encontrado){
+        res.status(404).send("Pokemon no encontrado");
+    }
 });
 app.listen(process.env.PORT || 3000,()=>{
     console.log("App en el puerto 3000");
