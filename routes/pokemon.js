@@ -7,7 +7,7 @@ const pokedb = require('../config/database');
 
 pokeroute.post('/',async (req,res,next)=>{
     const getAllPokimones = await pokedb.query("SELECT * FROM pokemon;");
-    res.status(200).json(getAllPokimones);
+    res.status(200).json({code: 1, message:getAllPokimones});
 });
 pokeroute.get('/',async (req,res,next)=>{
     /** No pude escribir pokedex en ASCII uwu
@@ -20,7 +20,7 @@ pokeroute.get('/',async (req,res,next)=>{
      */
     const getAllPokimones = await pokedb.query("SELECT * FROM pokemon;");
     //console.log(getAllPokimones);
-    res.status(200).json(getAllPokimones);
+    res.status(200).json({code: 1, message:getAllPokimones});
 });
 /*
 
@@ -39,12 +39,12 @@ pokeroute.post('/',async (req,res,next)=>{
 pokeroute.get('/:id([0-9]{1,3})',async (req,res,next)=>{
     var idpoke = req.params.id;
     const obtenerPokeId = await pokedb.query("SELECT * FROM pokemon WHERE pok_id = ?;",[idpoke]);
-    (obtenerPokeId.length > 0) ? res.status(200).json(obtenerPokeId) : res.status(404).send("Pokemon no existe");
+    (obtenerPokeId.length > 0) ? res.status(200).json({code: 1, message:obtenerPokeId}) : res.status(404).json({code: 404, message:"No se encontro el pokemon"});
 });
 pokeroute.get('/:name([A-Za-z]+)',async (req,res,next)=>{
     var pokename = req.params.name;
     const obtenerPokeName = await pokedb.query("SELECT * FROM pokemon WHERE lower(pok_name) = ?;",[pokename.toLowerCase()]);
-    (obtenerPokeName.length > 0) ? res.status(200).json(obtenerPokeName) : res.status(404).send("Pokemon no encontrado") ;
+    (obtenerPokeName.length > 0) ? res.status(200).json({code: 1, message:obtenerPokeName}) : res.status(404).json({code: 404, message:"No se encontro el pokemon"}) ;
     //var monster = pokemon.filter(p => p.name.toLowerCase() == pokename.toLowerCase());
     //(monster.length > 0) ? res.status(200).send(monster) : res.status(404).send("Pokemon no encontrado") ;
     /**

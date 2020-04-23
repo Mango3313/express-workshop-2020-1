@@ -1,13 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const bodyparser = require('body-parser');
 const morgan = require('morgan');
 //const Font = require('ascii-art-font');
 const pokeroute = require('./routes/pokemon');
 const app = express();
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:true}));
+//app.use(bodyparser.json());
+//app.use(bodyparser.urlencoded({extended:true}));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
 
 dotenv.config();
@@ -26,6 +27,9 @@ app.get('/',(req,res,next)=>{
 });
 
 app.use("/pokemon",pokeroute);
+app.use((req,res,next)=>{
+    res.status(404).json({code:404,message:"No encontre nada :c"});
+});
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log("App en el puerto 3000");
