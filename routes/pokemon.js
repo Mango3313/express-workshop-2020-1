@@ -6,8 +6,18 @@ const pokeroute = express.Router();
 const pokedb = require('../config/database');
 
 pokeroute.post('/',async (req,res,next)=>{
-    const getAllPokimones = await pokedb.query("SELECT * FROM pokemon;");
-    res.status(200).json({code: 1, message:getAllPokimones});
+    const {pok_name,pok_height,pok_weight,pok_base_experience} = req.body;
+    if(pok_name && pok_height && pok_weight && pok_base_experience){
+        const getAllPokimones = 
+        await pokedb.query("INSERT INTO pokemon (pok_name,pok_height,pok_weight,pok_base_experience) VALUES (?,?,?,?);",
+        [pok_name,pok_height,pok_weight,pok_base_experience]).then(()=>{res.status(201).json({code: 201, message:"Pokemon insertado correctamente"});}
+        ).catch(()=>{
+            res.status(500).json({code:500,message:"Se produjo un error"});
+        }); 
+    }else{
+        res.status(500).json({code:500,message:"Uno o mas campos vacios"});
+    }
+    
 });
 pokeroute.get('/',async (req,res,next)=>{
     /** No pude escribir pokedex en ASCII uwu
