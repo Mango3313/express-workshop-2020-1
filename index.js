@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 //const Font = require('ascii-art-font');
 const pokeroute = require('./routes/pokemon');
+const userroute = require('./routes/user');
 const app = express();
 
 //app.use(bodyparser.json());
@@ -27,6 +28,8 @@ app.get('/',(req,res,next)=>{
 });
 
 app.use("/pokemon",pokeroute);
+app.use("/user",userroute);
+
 app.use((req,res,next)=>{
     res.status(404).json({code:404,message:"No encontre nada :c"});
 });
