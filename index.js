@@ -8,9 +8,12 @@ const app = express();
 const auth = require('./middleware/auth');
 const notFound = require('./middleware/notFound');
 const index = require('./middleware/index');
+const cors = require('./middleware/corsconfig');
+
 
 //app.use(bodyparser.json());
 //app.use(bodyparser.urlencoded({extended:true}));
+app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
