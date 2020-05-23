@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/Mango3313/express-workshop-2020-1#readme",
   "dependencies": {
-    "ascii-art": "^2.5.0",
-    "ascii-art-table": "^1.0.1",
+    "cli": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
