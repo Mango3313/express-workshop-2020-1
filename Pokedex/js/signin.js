@@ -16,7 +16,7 @@ function signin(){
     var name = document.getElementById('input-name').value;
     axios({
         method:'post',
-        url:'http://localhost:3000/user/signin',
+        url:url+'user/signin',
         data:{
             user_name: name,
             user_mail: mail,
