@@ -1,3 +1,3 @@
 module.exports = (req,res,next)=>{
-    res.send("Beinvenido a la pokedex...");
+    res.send("Bienvenido a heroku");
 };
